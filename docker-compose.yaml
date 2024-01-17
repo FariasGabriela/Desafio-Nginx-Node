@@ -5,7 +5,7 @@ services:
     build:
       context: node
     container_name: app
-    entrypoint: sh -c "node index.js"
+    entrypoint: sh -c "npm i express && npm i mysql && node index.js"
     networks:
       - redezinha-node
     volumes:
