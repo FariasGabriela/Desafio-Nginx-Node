@@ -14,9 +14,11 @@ const connection = mysql.createConnection(config);
 let listDescricao = [];
 
 connection.connect();
+const tableRegistro = `CREATE TABLE registro(id INT NOT NULL AUTO_INCREMENT, descricao VARCHAR(255), PRIMARY KEY (id));`;
 const sql1 = `INSERT INTO registro(descricao) values ('Evento de Natal');`;
 const sql2 = `INSERT INTO registro(descricao) values ('Pascoa Solidária')`;
 const sql3 = `INSERT INTO registro(descricao) values ('Dia das mães')`;
+connection.query(tableRegistro)
 connection.query(sql1);
 connection.query(sql2);
 connection.query(sql3);
