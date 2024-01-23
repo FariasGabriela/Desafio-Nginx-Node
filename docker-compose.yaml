@@ -3,13 +3,13 @@ version: "1"
 services:
   app:
     build:
-      context: node
+      context: nginx
     container_name: app
-    entrypoint: sh -c "npm i express && npm i mysql && node index.js"
+    #entrypoint: sh -c "npm i express && npm i mysql && node index.js"
     networks:
       - redezinha-node
     volumes:
-      - ./node:/usr/src/app
+      - ./nginx:/usr/src/app
     tty: true
     ports:
       - "8080:8080"
