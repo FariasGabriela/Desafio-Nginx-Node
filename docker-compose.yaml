@@ -1,15 +1,28 @@
 version: "1"
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    tty: true
+    volumes: 
+      - ./nginx:/etc/nginx/default.config
+    command: /bin/sh -c "exec nginx -g 'daemon off;'"
+    networks:
+      - redezinha-node
+    depends_on: 
+      db: 
+        condition: service_healthy
+
   app:
     build:
-      context: nginx
+      context: node
     container_name: app
-    #entrypoint: sh -c "npm i express && npm i mysql && node index.js"
+    entrypoint: sh -c "npm i express && npm i mysql && node index.js"
     networks:
       - redezinha-node
     volumes:
-      - ./nginx:/usr/src/app
+      - ./node:/usr/src/app
     tty: true
     ports:
       - "8080:8080"
