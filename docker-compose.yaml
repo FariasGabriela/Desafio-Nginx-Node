@@ -6,13 +6,10 @@ services:
     container_name: nginx
     tty: true
     volumes: 
-      - ./nginx:/etc/nginx/default.config
+      - ./nginx:/etc/nginx/
     command: /bin/sh -c "exec nginx -g 'daemon off;'"
     networks:
       - redezinha-node
-    depends_on: 
-      db: 
-        condition: service_healthy
 
   app:
     build:
