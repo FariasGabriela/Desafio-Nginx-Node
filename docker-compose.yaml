@@ -5,24 +5,27 @@ services:
     image: nginx:latest
     container_name: nginx
     tty: true
+    ports:
+      - "8080:80"
     volumes: 
-      - ./nginx:/etc/nginx/
-    command: /bin/sh -c "exec nginx -g 'daemon off;'"
+      - ./nginx/default.conf:/etc/nginx/conf.d/
     networks:
       - redezinha-node
+    depends_on:
+      - app
 
   app:
     build:
       context: node
     container_name: app
-    entrypoint: sh -c "npm i express && npm i mysql && node index.js"
+    entrypoint: sh -c "npm i && node index.js"
     networks:
       - redezinha-node
     volumes:
       - ./node:/usr/src/app
     tty: true
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     depends_on: 
       db: 
         condition: service_healthy
